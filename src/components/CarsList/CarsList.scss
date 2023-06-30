@@ -39,7 +39,7 @@
 
   &__table-data {
     margin: 0;
-    padding: 16px;
+    padding: 12px;
     text-align: center;
     border-right: 1px solid $primary-grey;
 
@@ -51,20 +51,24 @@
 
   &__table-button {
     @extend %button;
-    width: 228px;
+    width: 248px;
     height: 58px;
     margin: 0 auto;
-    border-radius: 0;
-    transition: color 250ms $timing-function, background-color 250ms $timing-function;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: color 250ms $timing-function, background-color 250ms $timing-function,
+      border-color 250ms $timing-function;
 
     &_active {
       color: $white;
       background-color: $accent;
+      border-color: $primary-light-white;
     }
 
     &:hover {
       color: $white;
       background-color: $accent;
+      border-color: $primary-light-white;
     }
   }
 }

@@ -4,15 +4,15 @@ import { createPortal } from 'react-dom';
 import './Modal.scss';
 
 type ModalProps = {
-  closeModal: () => void;
+  onCloseModal: () => void;
   children: React.ReactNode;
 };
 
-const Modal: FC<ModalProps> = ({ closeModal, children }) => {
+const Modal: FC<ModalProps> = ({ onCloseModal, children }) => {
   useEffect(() => {
     const handleKeydown = (e: KeyboardEvent) => {
       if (e.code === 'Escape') {
-        closeModal();
+        onCloseModal();
       }
     };
     window.addEventListener('keydown', handleKeydown);
@@ -20,11 +20,11 @@ const Modal: FC<ModalProps> = ({ closeModal, children }) => {
     return () => {
       window.removeEventListener('keydown', handleKeydown);
     };
-  }, [closeModal]);
+  }, [onCloseModal]);
 
   const backdropClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.currentTarget === e.target) {
-      closeModal();
+      onCloseModal();
     }
   };
 

@@ -23,11 +23,11 @@
   transition: color 250ms $timing-function, background-color 250ms $timing-function;
   &:hover:not(.page-list__item_ellipsis) {
     color: $primary-light-white;
-    background-color: $light-green;
+    background-color: $accent;
   }
   &_active {
     color: $primary-light-white;
-    background-color: $light-green;
+    background-color: $accent;
   }
   &_ellipsis {
     cursor: auto;
@@ -55,7 +55,7 @@
   }
   &:hover:not(:disabled) {
     color: $primary-light-white;
-    background-color: $light-green;
+    background-color: $accent;
   }
 
   &:disabled .arrow-button__icon {

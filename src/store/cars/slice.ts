@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { Car } from '@types';
 
@@ -19,7 +19,11 @@ const carsInitialState: CarsState = {
 const carsSlice = createSlice({
   name: 'cars',
   initialState: carsInitialState,
-  reducers: {},
+  reducers: {
+    removeCar(state, { payload }: PayloadAction<number>) {
+      return { ...state, items: state.items.filter(({ id }) => id !== payload) };
+    },
+  },
   extraReducers: builder => {
     builder.addCase(getCars.pending, state => {
       return { ...state, isLoading: true };
@@ -37,4 +41,5 @@ const carsSlice = createSlice({
   },
 });
 
+export const { removeCar } = carsSlice.actions;
 export const carsReducer = carsSlice.reducer;

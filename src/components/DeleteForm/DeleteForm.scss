@@ -1,0 +1,53 @@
+@import '@styles/shared.scss';
+
+.delete {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  &__message {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  &__button-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+  }
+
+  &__confirm-button,
+  &__cancel-button {
+    @extend %button;
+    width: 200px;
+    height: 50px;
+    font-size: 16px;
+  }
+
+  &__confirm-button {
+    color: $primary-light-white;
+    background-color: $accent;
+    transition: background-color 250ms $timing-function;
+
+    &:hover,
+    &:focus {
+      background-color: $secondary-dark;
+    }
+  }
+
+  &__cancel-button {
+    color: $secondary-dark;
+    background-color: $primary-grey;
+    border: 1px solid transparent;
+    transition: background-color 250ms $timing-function, border-color 250ms $timing-function;
+
+    &:hover,
+    &:focus {
+      background-color: transparent;
+      border-color: $secondary-dark;
+    }
+  }
+}
