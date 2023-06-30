@@ -19,6 +19,12 @@ const CarItem: FC<CarItemProps> = ({
   const [dropdown, setDropdown] = useState<{ [car: number]: boolean }>({});
   const [deleteForm, setDeleteForm] = useState(false);
 
+  useEffect(() => {
+    const bodyEl = document.getElementById('body') as HTMLElement;
+
+    bodyEl.style.overflow = deleteForm ? 'hidden' : 'visible';
+  }, [deleteForm]);
+
   const openDropdownHandler = (car: number) => {
     setDropdown(prevState => ({
       ...prevState,
