@@ -1,0 +1,68 @@
+@import '@styles/shared.scss';
+
+.page {
+  padding: 40px 0;
+  &__list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+  }
+}
+
+.page-list__item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: color 250ms $timing-function, background-color 250ms $timing-function;
+  &:hover:not(.page-list__item_ellipsis) {
+    color: $primary-light-white;
+    background-color: $light-green;
+  }
+  &_active {
+    color: $primary-light-white;
+    background-color: $light-green;
+  }
+  &_ellipsis {
+    cursor: auto;
+  }
+}
+
+.arrow-button {
+  @extend %button;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  background-color: transparent;
+  border-radius: 5px;
+  transition: color 250ms $timing-function, background-color 250ms $timing-function;
+
+  &__icon {
+    width: 16px;
+    height: 16px;
+  }
+  &:disabled {
+    color: $secondary-grey;
+    cursor: auto;
+  }
+  &:hover:not(:disabled) {
+    color: $primary-light-white;
+    background-color: $light-green;
+  }
+
+  &:disabled .arrow-button__icon {
+    stroke: $primary-grey;
+  }
+
+  &__right {
+    transform: rotateZ(-180deg);
+  }
+}

@@ -1,0 +1,45 @@
+@import '@styles/shared.scss';
+
+.cars {
+  padding: 40px 0;
+  &__table {
+    margin: 0 auto;
+    width: 100%;
+    font-size: 16px;
+    border-collapse: collapse;
+    border-radius: 6px;
+    background-color: $white;
+    overflow: hidden;
+  }
+
+  &__table-head {
+    border: 1px solid $primary-grey;
+  }
+
+  &__table-title {
+    padding: 16px;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.33;
+    text-align: center;
+    letter-spacing: 0.03em;
+    background-color: $primary-grey;
+
+    &:not(:last-child) {
+      border-right: 1px solid $white;
+    }
+  }
+
+  &__table-body {
+    border: 1px solid $primary-grey;
+    .cars__table-row:nth-child(even) {
+      background-color: $secondary-dark-white;
+    }
+  }
+
+  &__table-data {
+    padding: 16px;
+    text-align: center;
+    border-right: 1px solid $primary-grey;
+  }
+}
