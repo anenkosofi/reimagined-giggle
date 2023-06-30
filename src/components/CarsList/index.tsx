@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 
 import Container from '@components/Container';
 import { useAppSelector } from '@hooks';
@@ -13,12 +13,20 @@ const CarsList: FC = () => {
   const page = useAppSelector(selectPage);
   const limit = useAppSelector(selectLimit);
 
+  const tableRef = useRef<HTMLTableElement | null>(null);
+
   const paginatedCars = getCarsPerPage({ page, limit, cars });
+
+  useEffect(() => {
+    if (tableRef.current) {
+      tableRef.current.parentElement?.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [page]);
 
   return (
     <section className="cars">
       <Container>
-        <table className="cars__table">
+        <table className="cars__table" ref={tableRef}>
           <thead className="cars__table-head">
             <tr>
               <th className="cars__table-title">Company</th>
