@@ -38,8 +38,33 @@
   }
 
   &__table-data {
+    margin: 0;
     padding: 16px;
     text-align: center;
     border-right: 1px solid $primary-grey;
+
+    &:last-child {
+      position: relative;
+      padding: 0;
+    }
+  }
+
+  &__table-button {
+    @extend %button;
+    width: 228px;
+    height: 58px;
+    margin: 0 auto;
+    border-radius: 0;
+    transition: color 250ms $timing-function, background-color 250ms $timing-function;
+
+    &_active {
+      color: $white;
+      background-color: $accent;
+    }
+
+    &:hover {
+      color: $white;
+      background-color: $accent;
+    }
   }
 }
