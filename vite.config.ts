@@ -17,5 +17,5 @@ export default defineConfig({
     },
   },
   plugins: [svgr(), react()],
-  base: '/effective-happiness',
+  base: '/reimagined-giggle',
 });
