@@ -27,22 +27,22 @@ const ColorForm: FC<ColorFormProps> = forwardRef(function ColorForm(
   const setColorHandler = (color: string) => dispatch(setColor(color));
 
   return (
-    <div className="form" {...props} ref={ref}>
-      <ul className="form__list">
+    <div className="color-form" {...props} ref={ref}>
+      <ul className="color-form__list">
         {colors.map(color => (
-          <li key={color} className="form__item">
+          <li key={color} className="color-form__item">
             <input
               id={color}
               type="checkbox"
-              className="form__input"
+              className="color-form__input"
               checked={areAnyColorsChecked(color)}
               onChange={() => setColorHandler(color)}
             />
-            <label htmlFor={color} className="form__field">
-              <span className="form__checkbox">
-                <Check className="form__icon" />
+            <label htmlFor={color} className="color-form__field">
+              <span className="color-form__checkbox">
+                <Check className="color-form__icon" />
               </span>
-              <span className="form__label" style={getTagStyle(color).style}>
+              <span className="color-form__label" style={getTagStyle(color).style}>
                 {color}
               </span>
             </label>

@@ -21,7 +21,7 @@ enum Ellipsis {
   'RIGHT' = 'ellipsis-right',
 }
 
-export const Pagination: FC = () => {
+const Pagination: FC = () => {
   const dispatch = useAppDispatch();
   const selectedPage = useAppSelector(selectPage);
   const limit = useAppSelector(selectLimit);
@@ -110,3 +110,5 @@ export const Pagination: FC = () => {
     </div>
   );
 };
+
+export default Pagination;

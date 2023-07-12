@@ -1,7 +1,13 @@
 import { createSelector } from '@reduxjs/toolkit';
 
 import { RootState } from '@store';
-import { selectSortStatus, selectColors } from '@store/filters/selectors';
+import {
+  selectSortStatus,
+  selectColors,
+  selectCompany,
+  selectModel,
+  selectAvailable,
+} from '@store/filters/selectors';
 import { SortStatus } from '@types';
 
 export const selectCars = (state: RootState) => state.cars.items;
@@ -11,15 +17,24 @@ export const selectIsLoading = (state: RootState) => state.cars.isLoading;
 export const selectError = (state: RootState) => state.cars.error;
 
 export const selectVisibleCars = createSelector(
-  [selectCars, selectColors, selectSortStatus],
-  (cars, colors, status) => {
+  [selectCars, selectColors, selectCompany, selectModel, selectAvailable, selectSortStatus],
+  (cars, colors, company, model, available, status) => {
     const visibleCars = cars.filter(car => {
-      const color = car.car_color.toLowerCase();
+      const carColor = car.car_color.toLowerCase();
+      const carCompany = car.car.trim().toLowerCase();
+      const carModel = car.car_model.trim().toLowerCase();
+      const isCarAvailable = car.availability;
 
       const matchesColor =
-        !colors.length || (colors.length && colors.some(item => item.toLowerCase() === color));
+        !colors.length || (colors.length && colors.some(color => color.toLowerCase() === carColor));
 
-      return matchesColor;
+      const matchesCompany = !company || (company.trim() && carCompany.includes(company.trim()));
+
+      const matchesModel = !model || (model.trim() && carModel.includes(model.trim()));
+
+      const matchesAvailability = !available || isCarAvailable;
+
+      return matchesColor && matchesCompany && matchesModel && matchesAvailability;
     });
     switch (status) {
       case SortStatus.COMPANY_A_Z:

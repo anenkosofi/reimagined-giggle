@@ -4,12 +4,11 @@
   padding: 40px 0;
   &__table {
     margin: 0 auto;
-    width: 100%;
+    width: 1440px;
     font-size: 14px;
     border-collapse: collapse;
     border-radius: 6px;
     background-color: $white;
-    overflow: hidden;
   }
 
   &__table-head {
@@ -34,6 +33,13 @@
 
     &_relative {
       position: relative;
+      z-index: 1;
+      cursor: pointer;
+      transition: background-color 250ms $timing-function;
+
+      &:hover {
+        background-color: $secondary-grey;
+      }
     }
 
     &:not(:last-child) {
@@ -58,7 +64,7 @@
     transition: background-color 250ms $timing-function;
 
     &:hover {
-      background-color: $secondary-grey;
+      background-color: $tertiary-grey;
     }
   }
 

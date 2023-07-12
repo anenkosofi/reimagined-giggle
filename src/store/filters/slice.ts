@@ -11,6 +11,9 @@ export interface FiltersState {
   limit: number;
   sortStatus: SortStatus | null;
   colors: string[];
+  company: string;
+  model: string;
+  available: boolean;
 }
 
 const filtersInitialState: FiltersState = {
@@ -18,14 +21,17 @@ const filtersInitialState: FiltersState = {
   limit: LIMIT,
   sortStatus: null,
   colors: [],
+  company: '',
+  model: '',
+  available: false,
 };
 
 const filtersSlice = createSlice({
   name: 'filters',
   initialState: filtersInitialState,
   reducers: {
-    setPage(state, action: PayloadAction<number>) {
-      return { ...state, page: action.payload };
+    setPage(state, { payload }: PayloadAction<number>) {
+      return { ...state, page: payload };
     },
     setSortStatus(state, { payload }: PayloadAction<SortStatus | null>) {
       return { ...state, sortStatus: payload };
@@ -38,8 +44,18 @@ const filtersSlice = createSlice({
           : [...state.colors, payload],
       };
     },
+    setCompany(state, { payload }: PayloadAction<string>) {
+      return { ...state, company: payload };
+    },
+    setModel(state, { payload }: PayloadAction<string>) {
+      return { ...state, model: payload };
+    },
+    setAvailable(state) {
+      return { ...state, available: !state.available };
+    },
   },
 });
 
-export const { setPage, setSortStatus, setColor } = filtersSlice.actions;
+export const { setPage, setSortStatus, setColor, setCompany, setModel, setAvailable } =
+  filtersSlice.actions;
 export const filtersReducer = filtersSlice.reducer;

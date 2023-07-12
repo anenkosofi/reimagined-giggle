@@ -1,12 +1,18 @@
 import React, { FC, useEffect } from 'react';
 
 import CarsList from '@components/CarsList';
-import { Pagination } from '@components/Pagination';
-import { useAppDispatch } from '@hooks';
+import Pagination from '@components/Pagination';
+import Switcher from '@components/Switcher';
+import { useAppDispatch, useAppSelector } from '@hooks';
 import { getCars } from '@store/cars/operations';
+import { selectVisibleCars } from '@store/cars/selectors';
+
+import '@components/CarsList/CarsList.scss';
 
 const App: FC = () => {
   const dispatch = useAppDispatch();
+
+  const visibleCars = useAppSelector(selectVisibleCars);
 
   useEffect(() => {
     dispatch(getCars());
@@ -14,8 +20,11 @@ const App: FC = () => {
 
   return (
     <main>
-      <CarsList />
-      <Pagination />
+      <section className="cars">
+        <Switcher />
+        <CarsList />
+        {Boolean(visibleCars.length) && <Pagination />}
+      </section>
     </main>
   );
 };
