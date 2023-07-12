@@ -5,7 +5,7 @@
   &__table {
     margin: 0 auto;
     width: 100%;
-    font-size: 16px;
+    font-size: 14px;
     border-collapse: collapse;
     border-radius: 6px;
     background-color: $white;
@@ -16,18 +16,59 @@
     border: 1px solid $primary-grey;
   }
 
+  &__table-row {
+    display: grid;
+    grid-template-columns: repeat(8, 232px);
+  }
+
   &__table-title {
-    padding: 16px;
-    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    font-size: 16px;
     font-weight: 600;
     line-height: 1.33;
-    text-align: center;
     letter-spacing: 0.03em;
     background-color: $primary-grey;
+
+    &_relative {
+      position: relative;
+    }
 
     &:not(:last-child) {
       border-right: 1px solid $white;
     }
+  }
+
+  &__table-control {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  &__sort-control {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__arrow-button,
+  &__search-button {
+    @extend %button;
+    transition: background-color 250ms $timing-function;
+
+    &:hover {
+      background-color: $secondary-grey;
+    }
+  }
+
+  &__arrow-button {
+    border-radius: 50%;
+  }
+
+  &__search-button {
+    padding: 8px 4px;
+    border-radius: 6px;
   }
 
   &__table-body {
@@ -38,20 +79,31 @@
   }
 
   &__table-data {
+    display: flex;
+    align-items: center;
     margin: 0;
-    padding: 12px;
-    text-align: center;
-    border-right: 1px solid $primary-grey;
+    padding: 0 12px;
+
+    &_color {
+      padding: 4px 8px;
+      background-color: rgba(169, 169, 169, 0.1);
+      border: 1px solid $primary-grey;
+      border-radius: 6px;
+    }
 
     &:last-child {
       position: relative;
       padding: 0;
     }
+
+    &:not(:last-child) {
+      border-right: 1px solid $primary-grey;
+    }
   }
 
   &__table-button {
     @extend %button;
-    width: 248px;
+    width: 232px;
     height: 58px;
     margin: 0 auto;
     border: 1px solid transparent;

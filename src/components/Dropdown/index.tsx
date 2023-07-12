@@ -1,13 +1,16 @@
-import React, { forwardRef } from 'react';
+import React, { FC, forwardRef, RefAttributes, ForwardedRef } from 'react';
 
 import './Dropdown.scss';
 
 type DropdownProps = {
   items: string[];
   onChooseOption: (name: string) => void;
-};
+} & RefAttributes<HTMLDivElement>;
 
-const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(({ items, onChooseOption }, ref) => {
+const Dropdown: FC<DropdownProps> = forwardRef(function Dropdown(
+  { items, onChooseOption }: DropdownProps,
+  ref: ForwardedRef<HTMLDivElement>
+) {
   return (
     <div className="dropdown" ref={ref}>
       <ul className="dropdown__list">
@@ -20,7 +23,5 @@ const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(({ items, onChooseOpt
     </div>
   );
 });
-
-Dropdown.displayName = 'Dropdown';
 
 export default Dropdown;

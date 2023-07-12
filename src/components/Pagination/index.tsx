@@ -3,7 +3,7 @@ import { IoIosArrowBack } from 'react-icons/io';
 
 import Container from '@components/Container';
 import { useAppDispatch, useAppSelector } from '@hooks';
-import { selectCars } from '@store/cars/selectors';
+import { selectVisibleCars } from '@store/cars/selectors';
 import { selectPage, selectLimit } from '@store/filters/selectors';
 import { setPage } from '@store/filters/slice';
 
@@ -25,7 +25,7 @@ export const Pagination: FC = () => {
   const dispatch = useAppDispatch();
   const selectedPage = useAppSelector(selectPage);
   const limit = useAppSelector(selectLimit);
-  const cars = useAppSelector(selectCars);
+  const cars = useAppSelector(selectVisibleCars);
 
   const pages = Math.ceil(cars.length / limit);
   const nextPage = selectedPage + 1;

@@ -1,0 +1,89 @@
+@import '@styles/shared.scss';
+
+.form {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  transform: translateY(2px);
+  width: 100%;
+  height: 320px;
+  padding: 16px;
+  background-color: $white;
+  border-radius: 6px;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2), 0px 3px 4px rgba(0, 0, 0, 0.12),
+    0px 2px 4px rgba(0, 0, 0, 0.14);
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    width: 2px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: $primary-grey;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $accent;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    white-space: nowrap;
+    clip-path: inset(100%);
+    clip: rect(0 0 0 0);
+    overflow: hidden;
+
+    &:checked + .form__field > .form__checkbox > .form__icon {
+      opacity: 1;
+    }
+
+    &:checked + .form__field > .form__checkbox {
+      background-color: $accent;
+      border-color: $accent;
+    }
+  }
+
+  &__field {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__checkbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    border: 1px solid $primary-grey;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 250ms $timing-function, border-color 250ms $timing-function;
+  }
+
+  &__icon {
+    stroke: $white;
+    opacity: 0;
+    transition: opacity 250ms $timing-function;
+  }
+
+  &__label {
+    padding: 4px 8px;
+    font-size: 14px;
+    background-color: rgba(169, 169, 169, 0.1);
+    border: 1px solid $primary-grey;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+}
