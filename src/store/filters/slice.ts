@@ -45,10 +45,10 @@ const filtersSlice = createSlice({
       };
     },
     setCompany(state, { payload }: PayloadAction<string>) {
-      return { ...state, company: payload };
+      return { ...state, page: START_PAGE, company: payload };
     },
     setModel(state, { payload }: PayloadAction<string>) {
-      return { ...state, model: payload };
+      return { ...state, page: START_PAGE, model: payload };
     },
     setAvailable(state) {
       return { ...state, available: !state.available };
