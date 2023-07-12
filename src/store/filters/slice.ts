@@ -34,11 +34,12 @@ const filtersSlice = createSlice({
       return { ...state, page: payload };
     },
     setSortStatus(state, { payload }: PayloadAction<SortStatus | null>) {
-      return { ...state, sortStatus: payload };
+      return { ...state, page: START_PAGE, sortStatus: payload };
     },
     setColor(state, { payload }: PayloadAction<string>) {
       return {
         ...state,
+        page: START_PAGE,
         colors: state.colors.includes(payload)
           ? state.colors.filter(color => color !== payload)
           : [...state.colors, payload],
@@ -51,7 +52,7 @@ const filtersSlice = createSlice({
       return { ...state, page: START_PAGE, model: payload };
     },
     setAvailable(state) {
-      return { ...state, available: !state.available };
+      return { ...state, page: START_PAGE, available: !state.available };
     },
   },
 });
