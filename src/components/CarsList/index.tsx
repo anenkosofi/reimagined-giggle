@@ -4,7 +4,6 @@ import { MdOutlineArrowDropUp, MdOutlineArrowDropDown, MdOutlineFilterAlt } from
 
 import CarItem from '@components/CarItem';
 import ColorForm from '@components/ColorForm';
-import Container from '@components/Container';
 import Notification from '@components/Notification';
 import SearchForm from '@components/SearchForm';
 import { useAppSelector, useAppDispatch } from '@hooks';
@@ -84,115 +83,65 @@ const CarsList: FC = () => {
   }, []);
 
   return (
-    <Container>
-      <table className="cars__table" ref={tableRef}>
-        <thead className="cars__table-head">
-          <tr className="cars__table-row">
-            <th
-              className="cars__table-title cars__table-title_relative"
-              title="Click to reset sorting"
-              onClick={resetStatusHandler}
-            >
-              <span>Company</span>
-              <div className="cars__table-control">
-                <div className="cars__sort-control">
-                  <button
-                    type="button"
-                    title="Click to sort ascending"
-                    className="cars__arrow-button"
-                    onClick={e => setStatusHandler(e, SortStatus.COMPANY_A_Z)}
-                  >
-                    <MdOutlineArrowDropUp size={16} />
-                  </button>
-                  <button
-                    type="button"
-                    title="Click to sort descending"
-                    className="cars__arrow-button"
-                    onClick={e => setStatusHandler(e, SortStatus.COMPANY_Z_A)}
-                  >
-                    <MdOutlineArrowDropDown size={16} />
-                  </button>
-                </div>
+    <table className="cars__table" ref={tableRef}>
+      <thead className="cars__table-head">
+        <tr className="cars__table-row">
+          <th
+            className="cars__table-title cars__table-title_relative"
+            title="Click to reset sorting"
+            onClick={resetStatusHandler}
+          >
+            <span>Company</span>
+            <div className="cars__table-control">
+              <div className="cars__sort-control">
                 <button
                   type="button"
-                  title=""
-                  className="cars__search-button"
-                  onClick={toggleCompanyFormHandler}
+                  title="Click to sort ascending"
+                  className="cars__arrow-button"
+                  onClick={e => setStatusHandler(e, SortStatus.COMPANY_A_Z)}
                 >
-                  <IoSearchOutline size={20} />
+                  <MdOutlineArrowDropUp size={16} />
                 </button>
-              </div>
-              {isCompanyFormOpened && (
-                <SearchForm
-                  id="company"
-                  name="company"
-                  placeholder="Search company"
-                  ref={companyFormRef}
-                />
-              )}
-            </th>
-            <th
-              className="cars__table-title cars__table-title_relative"
-              title="Click to reset sorting"
-              onClick={resetStatusHandler}
-            >
-              <span>Model</span>
-              <div className="cars__table-control">
-                <div className="cars__sort-control">
-                  <button
-                    type="button"
-                    title="Click to sort ascending"
-                    className="cars__arrow-button"
-                    onClick={e => setStatusHandler(e, SortStatus.MODEL_A_Z)}
-                  >
-                    <MdOutlineArrowDropUp size={16} />
-                  </button>
-                  <button
-                    type="button"
-                    title="Click to sort descending"
-                    className="cars__arrow-button"
-                    onClick={e => setStatusHandler(e, SortStatus.MODEL_Z_A)}
-                  >
-                    <MdOutlineArrowDropDown size={16} />
-                  </button>
-                </div>
                 <button
                   type="button"
-                  title="Click to search"
-                  className="cars__search-button"
-                  onClick={toggleModelFormHandler}
+                  title="Click to sort descending"
+                  className="cars__arrow-button"
+                  onClick={e => setStatusHandler(e, SortStatus.COMPANY_Z_A)}
                 >
-                  <IoSearchOutline size={20} />
+                  <MdOutlineArrowDropDown size={16} />
                 </button>
               </div>
-              {isModelFormOpened && (
-                <SearchForm id="model" name="model" placeholder="Search model" ref={modelFormRef} />
-              )}
-            </th>
-            <th className="cars__table-title">VIN</th>
-            <th className="cars__table-title cars__table-title_relative">
-              <span>Color</span>
               <button
                 type="button"
+                title=""
                 className="cars__search-button"
-                onClick={toggleColorFormHandler}
+                onClick={toggleCompanyFormHandler}
               >
-                <MdOutlineFilterAlt size={20} />
+                <IoSearchOutline size={20} />
               </button>
-              {isColorFormOpened && <ColorForm ref={colorFormRef} />}
-            </th>
-            <th
-              className="cars__table-title cars__table-title_relative"
-              title="Click to reset sorting"
-              onClick={resetStatusHandler}
-            >
-              <span>Year</span>
+            </div>
+            {isCompanyFormOpened && (
+              <SearchForm
+                id="company"
+                name="company"
+                placeholder="Search company"
+                ref={companyFormRef}
+              />
+            )}
+          </th>
+          <th
+            className="cars__table-title cars__table-title_relative"
+            title="Click to reset sorting"
+            onClick={resetStatusHandler}
+          >
+            <span>Model</span>
+            <div className="cars__table-control">
               <div className="cars__sort-control">
                 <button
                   type="button"
                   title="Click to sort ascending"
                   className="cars__arrow-button"
-                  onClick={e => setStatusHandler(e, SortStatus.YEAR_A_Z)}
+                  onClick={e => setStatusHandler(e, SortStatus.MODEL_A_Z)}
                 >
                   <MdOutlineArrowDropUp size={16} />
                 </button>
@@ -200,58 +149,102 @@ const CarsList: FC = () => {
                   type="button"
                   title="Click to sort descending"
                   className="cars__arrow-button"
-                  onClick={e => setStatusHandler(e, SortStatus.YEAR_Z_A)}
+                  onClick={e => setStatusHandler(e, SortStatus.MODEL_Z_A)}
                 >
                   <MdOutlineArrowDropDown size={16} />
                 </button>
               </div>
-            </th>
-            <th
-              className="cars__table-title cars__table-title_relative"
-              title="Click to reset sorting"
-              onClick={resetStatusHandler}
-            >
-              <span>Price</span>
-              <div className="cars__sort-control">
-                <button
-                  type="button"
-                  title="Click to sort ascending"
-                  className="cars__arrow-button"
-                  onClick={e => setStatusHandler(e, SortStatus.PRICE_A_Z)}
-                >
-                  <MdOutlineArrowDropUp size={16} />
-                </button>
-                <button
-                  type="button"
-                  title="Click to sort descending"
-                  className="cars__arrow-button"
-                  onClick={e => setStatusHandler(e, SortStatus.PRICE_Z_A)}
-                >
-                  <MdOutlineArrowDropDown size={16} />
-                </button>
-              </div>
-            </th>
-            <th className="cars__table-title">Availability</th>
-            <th className="cars__table-title">Actions</th>
+              <button
+                type="button"
+                title="Click to search"
+                className="cars__search-button"
+                onClick={toggleModelFormHandler}
+              >
+                <IoSearchOutline size={20} />
+              </button>
+            </div>
+            {isModelFormOpened && (
+              <SearchForm id="model" name="model" placeholder="Search model" ref={modelFormRef} />
+            )}
+          </th>
+          <th className="cars__table-title">VIN</th>
+          <th className="cars__table-title cars__table-title_relative">
+            <span>Color</span>
+            <button type="button" className="cars__search-button" onClick={toggleColorFormHandler}>
+              <MdOutlineFilterAlt size={20} />
+            </button>
+            {isColorFormOpened && <ColorForm ref={colorFormRef} />}
+          </th>
+          <th
+            className="cars__table-title cars__table-title_relative"
+            title="Click to reset sorting"
+            onClick={resetStatusHandler}
+          >
+            <span>Year</span>
+            <div className="cars__sort-control">
+              <button
+                type="button"
+                title="Click to sort ascending"
+                className="cars__arrow-button"
+                onClick={e => setStatusHandler(e, SortStatus.YEAR_A_Z)}
+              >
+                <MdOutlineArrowDropUp size={16} />
+              </button>
+              <button
+                type="button"
+                title="Click to sort descending"
+                className="cars__arrow-button"
+                onClick={e => setStatusHandler(e, SortStatus.YEAR_Z_A)}
+              >
+                <MdOutlineArrowDropDown size={16} />
+              </button>
+            </div>
+          </th>
+          <th
+            className="cars__table-title cars__table-title_relative"
+            title="Click to reset sorting"
+            onClick={resetStatusHandler}
+          >
+            <span>Price</span>
+            <div className="cars__sort-control">
+              <button
+                type="button"
+                title="Click to sort ascending"
+                className="cars__arrow-button"
+                onClick={e => setStatusHandler(e, SortStatus.PRICE_A_Z)}
+              >
+                <MdOutlineArrowDropUp size={16} />
+              </button>
+              <button
+                type="button"
+                title="Click to sort descending"
+                className="cars__arrow-button"
+                onClick={e => setStatusHandler(e, SortStatus.PRICE_Z_A)}
+              >
+                <MdOutlineArrowDropDown size={16} />
+              </button>
+            </div>
+          </th>
+          <th className="cars__table-title">Availability</th>
+          <th className="cars__table-title">Actions</th>
+        </tr>
+      </thead>
+      {paginatedCars.length ? (
+        <tbody className="cars__table-body">
+          {paginatedCars.map(car => (
+            <CarItem key={car.id} car={car} />
+          ))}
+        </tbody>
+      ) : (
+        <tbody>
+          <tr>
+            <td colSpan={8}>
+              <Notification message="We are sorry, but the cars you were looking for can’t be found..." />
+            </td>
           </tr>
-        </thead>
-        {paginatedCars.length ? (
-          <tbody className="cars__table-body">
-            {paginatedCars.map(car => (
-              <CarItem key={car.id} car={car} />
-            ))}
-          </tbody>
-        ) : (
-          <tbody>
-            <tr>
-              <td colSpan={8}>
-                <Notification message="We are sorry, but the cars you were looking for can’t be found..." />
-              </td>
-            </tr>
-          </tbody>
-        )}
-      </table>
-    </Container>
+        </tbody>
+      )}
+    </table>
   );
 };
 

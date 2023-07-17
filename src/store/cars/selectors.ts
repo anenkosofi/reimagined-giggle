@@ -16,10 +16,20 @@ export const selectIsLoading = (state: RootState) => state.cars.isLoading;
 
 export const selectError = (state: RootState) => state.cars.error;
 
+export const selectAddedCars = (state: RootState) => state.cars.addedCars;
+
 export const selectVisibleCars = createSelector(
-  [selectCars, selectColors, selectCompany, selectModel, selectAvailable, selectSortStatus],
-  (cars, colors, company, model, available, status) => {
-    const visibleCars = cars.filter(car => {
+  [
+    selectCars,
+    selectAddedCars,
+    selectColors,
+    selectCompany,
+    selectModel,
+    selectAvailable,
+    selectSortStatus,
+  ],
+  (cars, addedCars, colors, company, model, available, status) => {
+    const visibleCars = [...addedCars, ...cars].filter(car => {
       const carColor = car.car_color.toLowerCase();
       const carCompany = car.car.trim().toLowerCase();
       const carModel = car.car_model.trim().toLowerCase();

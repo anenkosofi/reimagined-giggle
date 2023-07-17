@@ -73,9 +73,9 @@ const CarItem: FC<CarItemProps> = ({
   return (
     <>
       <tr className="cars__table-row">
-        <td className="cars__table-data">{car}</td>
-        <td className="cars__table-data">{car_model}</td>
-        <td className="cars__table-data">{car_vin}</td>
+        <td className="cars__table-data cars__table-data_car">{car}</td>
+        <td className="cars__table-data cars__table-data_model">{car_model}</td>
+        <td className="cars__table-data cars__table-data_vin">{car_vin}</td>
         <td className="cars__table-data">
           <span className="cars__table-data_color" style={tagStyle.style}>
             {car_color}

@@ -24,7 +24,8 @@
       "@store/*": ["./store/*"],
       "@store": ["./store"],
       "@utils": ["./utils"],
-      "@hooks": ["./hooks"]
+      "@hooks": ["./hooks"],
+      "@constants": ["./constants"]
     },
     "types": ["vite-plugin-svgr/client"]
   },

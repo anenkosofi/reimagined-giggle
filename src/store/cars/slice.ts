@@ -8,18 +8,23 @@ export interface CarsState {
   items: Car[];
   isLoading: boolean;
   error: null | string;
+  addedCars: Car[];
 }
 
 const carsInitialState: CarsState = {
   items: [],
   isLoading: false,
   error: null,
+  addedCars: [],
 };
 
 const carsSlice = createSlice({
   name: 'cars',
   initialState: carsInitialState,
   reducers: {
+    addCar(state, { payload }: PayloadAction<Car>) {
+      return { ...state, addedCars: [payload, ...state.addedCars] };
+    },
     removeCar(state, { payload }: PayloadAction<number>) {
       return { ...state, items: state.items.filter(({ id }) => id !== payload) };
     },
@@ -41,5 +46,5 @@ const carsSlice = createSlice({
   },
 });
 
-export const { removeCar } = carsSlice.actions;
+export const { addCar, removeCar } = carsSlice.actions;
 export const carsReducer = carsSlice.reducer;

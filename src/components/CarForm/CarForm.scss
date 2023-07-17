@@ -1,0 +1,146 @@
+@import '@styles/shared.scss';
+
+.car-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  &__field {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  &__label {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+
+    &_option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 400;
+      cursor: pointer;
+    }
+  }
+
+  &__input {
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: $primary-dark;
+    border: 1px solid $primary-grey;
+    border-radius: 6px;
+    outline: none;
+    transition: border-color 250ms $timing-function;
+
+    &:focus {
+      border-color: $accent;
+    }
+
+    &::placeholder {
+      font-family: $primary-font-stack;
+      font-size: 14px;
+      font-weight: 200;
+      line-height: 1.5;
+      color: $tertiary-grey;
+    }
+  }
+
+  &__error {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    color: $red;
+  }
+
+  &__options {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  &__radio {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    white-space: nowrap;
+    clip-path: inset(100%);
+    clip: rect(0 0 0 0);
+    overflow: hidden;
+
+    &:checked + .car-form__circle > .car-form__dot {
+      opacity: 1;
+    }
+  }
+
+  &__circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 17px;
+    height: 17px;
+    border: 1px solid $tertiary-grey;
+    border-radius: 50%;
+  }
+
+  &__dot {
+    width: 9px;
+    height: 9px;
+    background-color: $accent;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 250ms $timing-function;
+  }
+
+  &__control {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__submit {
+    @extend %button;
+    width: 48%;
+    height: 50px;
+    font-size: 14px;
+    letter-spacing: 0.03em;
+    color: $primary-light-white;
+    background-color: $accent;
+    border: 1px solid $accent;
+    border-radius: 6px;
+    transition: background-color 250ms $timing-function, border-color 250ms $timing-function;
+
+    &:hover {
+      background-color: $secondary-dark;
+      border-color: $secondary-dark;
+    }
+  }
+
+  &__cancel {
+    @extend %button;
+    width: 48%;
+    height: 50px;
+    font-size: 14px;
+    letter-spacing: 0.03em;
+    color: $primary-dark;
+    background-color: $primary-grey;
+    border: 1px solid $primary-grey;
+    border-radius: 6px;
+    transition: background-color 250ms $timing-function, border-color 250ms $timing-function;
+
+    &:hover {
+      background-color: transparent;
+      border-color: $secondary-dark;
+    }
+  }
+}

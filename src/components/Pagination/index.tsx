@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import { IoIosArrowBack } from 'react-icons/io';
 
-import Container from '@components/Container';
 import { useAppDispatch, useAppSelector } from '@hooks';
 import { selectVisibleCars } from '@store/cars/selectors';
 import { selectPage, selectLimit } from '@store/filters/selectors';
@@ -85,28 +84,24 @@ const Pagination: FC = () => {
   };
 
   return (
-    <div className="page">
-      <Container>
-        <div className="page__list">
-          <button
-            type="button"
-            disabled={selectedPage === 1}
-            className="arrow-button"
-            onClick={() => setPageHandler(prevPage)}
-          >
-            <IoIosArrowBack className="arrow-button__icon arrow-button__left" />
-          </button>
-          <ul className="page__list">{renderPageNumbers()}</ul>
-          <button
-            type="button"
-            disabled={selectedPage === pages}
-            className="arrow-button"
-            onClick={() => setPageHandler(nextPage)}
-          >
-            <IoIosArrowBack className="arrow-button__icon arrow-button__right" />
-          </button>
-        </div>
-      </Container>
+    <div className="page__list">
+      <button
+        type="button"
+        disabled={selectedPage === 1}
+        className="arrow-button"
+        onClick={() => setPageHandler(prevPage)}
+      >
+        <IoIosArrowBack className="arrow-button__icon arrow-button__left" />
+      </button>
+      <ul className="page__list">{renderPageNumbers()}</ul>
+      <button
+        type="button"
+        disabled={selectedPage === pages}
+        className="arrow-button"
+        onClick={() => setPageHandler(nextPage)}
+      >
+        <IoIosArrowBack className="arrow-button__icon arrow-button__right" />
+      </button>
     </div>
   );
 };

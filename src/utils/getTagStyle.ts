@@ -27,7 +27,7 @@ const carColors: CarColors = {
 };
 
 export const getTagStyle = (color: string) => {
-  const carHexColor = carColors[color];
+  const carHexColor = carColors[color[0].toUpperCase() + color.slice(1)];
   const carRGBAColor = hexToRGBA(carHexColor);
 
   const styles: { [key: string]: string } = {
