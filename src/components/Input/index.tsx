@@ -10,9 +10,10 @@ type InputProps = {
   placeholder: string;
   errors: FieldErrors<Form>;
   register: UseFormRegister<Form>;
+  disabled: boolean;
 };
 
-const Input: FC<InputProps> = ({ name, label, type, placeholder, errors, register }) => {
+const Input: FC<InputProps> = ({ name, label, type, placeholder, errors, register, disabled }) => {
   return (
     <div className="car-form__field">
       <label htmlFor={name} className="car-form__label">
@@ -25,6 +26,7 @@ const Input: FC<InputProps> = ({ name, label, type, placeholder, errors, registe
         placeholder={placeholder}
         className="car-form__input"
         {...register(name)}
+        disabled={disabled}
       />
       {errors[name] && (
         <p role="alert" className="car-form__error">

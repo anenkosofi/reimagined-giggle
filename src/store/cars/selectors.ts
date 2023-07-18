@@ -18,34 +18,50 @@ export const selectError = (state: RootState) => state.cars.error;
 
 export const selectAddedCars = (state: RootState) => state.cars.addedCars;
 
+export const selectDeletedCars = (state: RootState) => state.cars.deletedCars;
+
+export const selectEditedCars = (state: RootState) => state.cars.editedCars;
+
 export const selectVisibleCars = createSelector(
   [
     selectCars,
+    selectDeletedCars,
     selectAddedCars,
+    selectEditedCars,
     selectColors,
     selectCompany,
     selectModel,
     selectAvailable,
     selectSortStatus,
   ],
-  (cars, addedCars, colors, company, model, available, status) => {
-    const visibleCars = [...addedCars, ...cars].filter(car => {
-      const carColor = car.car_color.toLowerCase();
-      const carCompany = car.car.trim().toLowerCase();
-      const carModel = car.car_model.trim().toLowerCase();
-      const isCarAvailable = car.availability;
-
-      const matchesColor =
-        !colors.length || (colors.length && colors.some(color => color.toLowerCase() === carColor));
-
-      const matchesCompany = !company || (company.trim() && carCompany.includes(company.trim()));
-
-      const matchesModel = !model || (model.trim() && carModel.includes(model.trim()));
-
-      const matchesAvailability = !available || isCarAvailable;
-
-      return matchesColor && matchesCompany && matchesModel && matchesAvailability;
+  (cars, deletedCars, addedCars, editedCars, colors, company, model, available, status) => {
+    const updatedCars = [...addedCars, ...cars].map(car => {
+      const updatedCar = editedCars.find(editedCar => editedCar.id === car.id);
+      if (updatedCar) {
+        return { ...car, ...updatedCar };
+      }
+      return car;
     });
+    const visibleCars = updatedCars
+      .filter(({ id }) => !deletedCars.includes(id))
+      .filter(car => {
+        const carColor = car.car_color.toLowerCase();
+        const carCompany = car.car.trim().toLowerCase();
+        const carModel = car.car_model.trim().toLowerCase();
+        const isCarAvailable = car.availability;
+
+        const matchesColor =
+          !colors.length ||
+          (colors.length && colors.some(color => color.toLowerCase() === carColor));
+
+        const matchesCompany = !company || (company.trim() && carCompany.includes(company.trim()));
+
+        const matchesModel = !model || (model.trim() && carModel.includes(model.trim()));
+
+        const matchesAvailability = !available || isCarAvailable;
+
+        return matchesColor && matchesCompany && matchesModel && matchesAvailability;
+      });
     switch (status) {
       case SortStatus.COMPANY_A_Z:
         visibleCars.sort((a, b) => a.car.localeCompare(b.car));

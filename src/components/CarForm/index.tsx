@@ -8,24 +8,24 @@ import Input from '@components/Input';
 import { inputs } from '@constants';
 import { useAppDispatch, useAppSelector } from '@hooks';
 import { selectAddedCars } from '@store/cars/selectors';
-import { addCar } from '@store/cars/slice';
+import { addCar, editCar } from '@store/cars/slice';
 import { setPage } from '@store/filters/slice';
 import { Form } from '@types';
 
 import './CarForm.scss';
 
 type CarFormProps = {
-  onCloseModal: () => void;
-};
-
-const defaultValues: Form = {
-  company: '',
-  model: '',
-  vin: '',
-  year: '',
-  color: '',
-  price: '',
-  availability: false,
+  carDetails?: {
+    id: number;
+    company: string;
+    model: string;
+    vin: string;
+    year: string;
+    color: string;
+    price: string;
+    availability: boolean;
+  };
+  closeModal: () => void;
 };
 
 export const schema = z.object({
@@ -49,10 +49,20 @@ export const schema = z.object({
   availability: z.boolean(),
 });
 
-const CarForm: FC<CarFormProps> = ({ onCloseModal }) => {
+const CarForm: FC<CarFormProps> = ({ carDetails, closeModal }) => {
   const dispatch = useAppDispatch();
 
   const addedCars = useAppSelector(selectAddedCars);
+
+  const defaultValues: Form = {
+    company: carDetails?.company || '',
+    model: carDetails?.model || '',
+    vin: carDetails?.vin || '',
+    year: carDetails?.year || '',
+    color: carDetails?.color || '',
+    price: carDetails?.price || '',
+    availability: carDetails?.availability || false,
+  };
 
   const {
     register,
@@ -64,10 +74,25 @@ const CarForm: FC<CarFormProps> = ({ onCloseModal }) => {
     defaultValues,
     resolver: zodResolver(schema),
     mode: 'onChange',
-    reValidateMode: 'onChange',
+    reValidateMode: 'onSubmit',
   });
 
   const onSubmitHandler = (data: Form) => {
+    if (carDetails) {
+      const { id, company, model, year } = carDetails;
+      const { color, vin, price, availability } = data;
+      const newCar = {
+        id,
+        car: company,
+        car_model: model,
+        car_color: color,
+        car_model_year: +year,
+        car_vin: vin,
+        price: price[0] === '$' ? price : '$' + price,
+        availability,
+      };
+      return dispatch(editCar(newCar));
+    }
     const { company, model, vin, year, color, price, availability } = data;
     const newCar = {
       id: addedCars.length ? addedCars[addedCars.length - 1].id + 1 : 1001,
@@ -76,7 +101,7 @@ const CarForm: FC<CarFormProps> = ({ onCloseModal }) => {
       car_color: color,
       car_model_year: +year,
       car_vin: vin,
-      price,
+      price: price[0] === '$' ? price : '$' + price,
       availability,
     };
     dispatch(addCar(newCar));
@@ -87,11 +112,15 @@ const CarForm: FC<CarFormProps> = ({ onCloseModal }) => {
     if (isSubmitSuccessful) {
       reset(defaultValues);
 
-      onCloseModal();
+      closeModal();
     }
   }, [isSubmitSuccessful]);
 
-  const closeFormHandler = () => onCloseModal();
+  const setInputDisabled = (name: keyof Form) =>
+    Boolean(carDetails) &&
+    (name === 'company' || name === 'model' || name === 'vin' || name === 'year')
+      ? true
+      : false;
 
   return (
     <>
@@ -116,6 +145,7 @@ const CarForm: FC<CarFormProps> = ({ onCloseModal }) => {
             placeholder={placeholder}
             errors={errors}
             register={register}
+            disabled={setInputDisabled(name)}
           />
         ))}
         <div className="car-form__label">Availability</div>
@@ -162,7 +192,7 @@ const CarForm: FC<CarFormProps> = ({ onCloseModal }) => {
           <button type="submit" disabled={!isValid} className="car-form__submit">
             Submit
           </button>
-          <button type="button" className="car-form__cancel" onClick={closeFormHandler}>
+          <button type="button" className="car-form__cancel" onClick={closeModal}>
             Cancel
           </button>
         </div>

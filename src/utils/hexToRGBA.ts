@@ -8,5 +8,5 @@ export const hexToRGBA = (hex: string): string => {
     c = ['0x' + c[0] + c[1], '0x' + c[2] + c[3], '0x' + c[4] + c[5]];
     return `rgba(${parseInt(c[0])}, ${parseInt(c[1])}, ${parseInt(c[2])}, 0.1)`;
   }
-  throw new Error('Bad Hex Color!');
+  return 'rgba(42, 44, 54, 0.1)';
 };

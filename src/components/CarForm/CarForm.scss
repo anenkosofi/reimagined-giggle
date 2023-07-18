@@ -42,6 +42,12 @@
       border-color: $accent;
     }
 
+    &:disabled {
+      font-weight: 500;
+      color: $tertiary-grey;
+      cursor: not-allowed;
+    }
+
     &::placeholder {
       font-family: $primary-font-stack;
       font-size: 14px;

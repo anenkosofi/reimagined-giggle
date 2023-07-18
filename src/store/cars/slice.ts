@@ -9,6 +9,8 @@ export interface CarsState {
   isLoading: boolean;
   error: null | string;
   addedCars: Car[];
+  deletedCars: number[];
+  editedCars: Car[];
 }
 
 const carsInitialState: CarsState = {
@@ -16,6 +18,8 @@ const carsInitialState: CarsState = {
   isLoading: false,
   error: null,
   addedCars: [],
+  deletedCars: [],
+  editedCars: [],
 };
 
 const carsSlice = createSlice({
@@ -26,7 +30,15 @@ const carsSlice = createSlice({
       return { ...state, addedCars: [payload, ...state.addedCars] };
     },
     removeCar(state, { payload }: PayloadAction<number>) {
-      return { ...state, items: state.items.filter(({ id }) => id !== payload) };
+      return { ...state, deletedCars: [...state.deletedCars, payload] };
+    },
+    editCar(state, { payload }: PayloadAction<Car>) {
+      return {
+        ...state,
+        editedCars: state.editedCars.find(({ id }) => id === payload.id)
+          ? state.editedCars.map(car => (car.id === payload.id ? { ...car, ...payload } : car))
+          : [...state.editedCars, payload],
+      };
     },
   },
   extraReducers: builder => {
@@ -46,5 +58,5 @@ const carsSlice = createSlice({
   },
 });
 
-export const { addCar, removeCar } = carsSlice.actions;
+export const { addCar, removeCar, editCar } = carsSlice.actions;
 export const carsReducer = carsSlice.reducer;

@@ -1,5 +1,6 @@
 import React, { FC, useState, useEffect, useRef } from 'react';
 
+import CarForm from '@components/CarForm';
 import DeleteForm from '@components/DeleteForm';
 import Dropdown from '@components/Dropdown';
 import Modal from '@components/Modal';
@@ -17,14 +18,32 @@ const CarItem: FC<CarItemProps> = ({
 
   const actions = Object.values(Action);
 
+  const carDetails = {
+    id,
+    company: car,
+    model: car_model,
+    color: car_color,
+    year: car_model_year.toString(),
+    vin: car_vin,
+    price,
+    availability,
+  };
+
   const [actionDropdown, setActionDropdown] = useState<{ [car: number]: boolean }>({});
   const [deleteForm, setDeleteForm] = useState(false);
+  const [editForm, setEditForm] = useState(false);
 
   useEffect(() => {
     const bodyEl = document.getElementById('body') as HTMLElement;
 
     bodyEl.style.overflow = deleteForm ? 'hidden' : 'visible';
   }, [deleteForm]);
+
+  useEffect(() => {
+    const bodyEl = document.getElementById('body') as HTMLElement;
+
+    bodyEl.style.overflow = editForm ? 'hidden' : 'visible';
+  }, [editForm]);
 
   const openActionDropdownHandler = (car: number) => {
     setActionDropdown(prevState => ({
@@ -62,11 +81,14 @@ const CarItem: FC<CarItemProps> = ({
 
   const chooseOptionHandler = (name: string) => {
     if (name === Action.DELETE) {
-      setDeleteForm(true);
+      return setDeleteForm(true);
     }
+    return setEditForm(true);
   };
 
   const closeDeleteFormHandler = () => setDeleteForm(false);
+
+  const closeEditFormHandler = () => setEditForm(false);
 
   const tagStyle = getTagStyle(car_color);
 
@@ -106,8 +128,13 @@ const CarItem: FC<CarItemProps> = ({
         </td>
       </tr>
       {deleteForm && (
-        <Modal onCloseModal={closeDeleteFormHandler}>
+        <Modal closeModal={closeDeleteFormHandler}>
           <DeleteForm id={id} company={car} model={car_model} closeModal={closeDeleteFormHandler} />
+        </Modal>
+      )}
+      {editForm && (
+        <Modal closeModal={closeDeleteFormHandler}>
+          <CarForm carDetails={carDetails} closeModal={closeEditFormHandler} />
         </Modal>
       )}
     </>

@@ -18,7 +18,7 @@ const App: FC = () => {
 
   const visibleCars = useAppSelector(selectVisibleCars);
 
-  const [isCarFormOpened, setIsCarFormOpened] = useState(false);
+  const [isAddFormOpened, setIsAddFormOpened] = useState(false);
 
   useEffect(() => {
     dispatch(getCars());
@@ -27,12 +27,12 @@ const App: FC = () => {
   useEffect(() => {
     const bodyEl = document.getElementById('body') as HTMLElement;
 
-    bodyEl.style.overflow = isCarFormOpened ? 'hidden' : 'visible';
-  }, [isCarFormOpened]);
+    bodyEl.style.overflow = isAddFormOpened ? 'hidden' : 'visible';
+  }, [isAddFormOpened]);
 
-  const openCarFormHandler = () => setIsCarFormOpened(true);
+  const openCarFormHandler = () => setIsAddFormOpened(true);
 
-  const closeCarFormHandler = () => setIsCarFormOpened(false);
+  const closeCarFormHandler = () => setIsAddFormOpened(false);
 
   return (
     <main>
@@ -47,9 +47,9 @@ const App: FC = () => {
           </div>
           <CarsList />
           {Boolean(visibleCars.length) && <Pagination />}
-          {isCarFormOpened && (
-            <Modal onCloseModal={closeCarFormHandler}>
-              <CarForm onCloseModal={closeCarFormHandler} />
+          {isAddFormOpened && (
+            <Modal closeModal={closeCarFormHandler}>
+              <CarForm closeModal={closeCarFormHandler} />
             </Modal>
           )}
         </Container>

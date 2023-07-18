@@ -131,8 +131,9 @@
     &_color {
       padding: 4px 8px;
       text-transform: capitalize;
-      background-color: rgba(169, 169, 169, 0.1);
-      border: 1px solid $primary-grey;
+      color: $secondary-dark;
+      background-color: rgba(42, 44, 54, 0.1);
+      border: 1px solid $secondary-dark;
       border-radius: 6px;
     }
 
